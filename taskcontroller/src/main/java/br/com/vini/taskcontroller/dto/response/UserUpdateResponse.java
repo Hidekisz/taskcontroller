@@ -1,4 +1,11 @@
 package br.com.vini.taskcontroller.dto.response;
 
-public class UserUpdateResponse {
-}
+import lombok.*;
+
+//@Getter
+//@Setter
+//@AllArgsConstructor
+//@NoArgsConstructor
+//public class UserUpdateResponse {
+//
+//}

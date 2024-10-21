@@ -37,6 +37,12 @@ public class UserEntity implements UserDetails {
         this.role = role;
     }
 
+//    public UserEntity(UserEntity userEntity) {
+//        this.userId = userEntity.getUserId();
+//        this.login = userEntity.getLogin();
+//        this.role = userEntity.getRole();
+//    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == RolesEnum.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));

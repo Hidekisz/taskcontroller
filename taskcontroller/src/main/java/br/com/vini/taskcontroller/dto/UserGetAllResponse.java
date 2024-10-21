@@ -1,21 +1,13 @@
-package br.com.vini.taskcontroller.dto.request;
+package br.com.vini.taskcontroller.dto;
 
 import br.com.vini.taskcontroller.enums.RolesEnum;
-import lombok.*;
 import org.springframework.data.annotation.Id;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserUpdateRequest {
+public class UserGetAllResponse {
 
     public String userId;
 
     public String login;
 
-    public String password;
-
     public RolesEnum role;
-
 }
