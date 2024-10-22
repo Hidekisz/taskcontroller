@@ -44,7 +44,7 @@ public class DailyController {
         return ResponseEntity.ok(pdfFollowUpResponse);
     }
 
-    @GetMapping("/day")
+    @GetMapping("/day/today")
     public ResponseEntity<PdfFollowUpResponse> getGymFollowUpToday(){
 
         LocalDateTime localDateTime = LocalDateTime.now();
