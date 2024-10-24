@@ -3,14 +3,12 @@ package br.com.vini.taskcontroller.controller;
 import br.com.vini.taskcontroller.dto.request.ConsultDateRequest;
 import br.com.vini.taskcontroller.dto.request.CreateDailyFollowUpRequest;
 import br.com.vini.taskcontroller.dto.response.PdfFollowUpResponse;
-import br.com.vini.taskcontroller.dto.response.TaskCreateResponse;
-import br.com.vini.taskcontroller.enums.DayType;
 import br.com.vini.taskcontroller.facade.DailyFollowUpFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -39,7 +37,7 @@ public class DailyController {
 
     //    Get followUp do dia returns pdf day.now
     @GetMapping("/day")
-    public ResponseEntity<PdfFollowUpResponse> getGymFollowUpToday(@RequestBody ConsultDateRequest consultDateRequest){
+    public ResponseEntity<PdfFollowUpResponse> getGymFollowUpByDate(@RequestBody ConsultDateRequest consultDateRequest){
         PdfFollowUpResponse pdfFollowUpResponse = dailyFollowUpFacade.gerarPdfDaily(consultDateRequest);
         return ResponseEntity.ok(pdfFollowUpResponse);
     }
@@ -47,7 +45,7 @@ public class DailyController {
     @GetMapping("/day/today")
     public ResponseEntity<PdfFollowUpResponse> getGymFollowUpToday(){
 
-        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDate localDateTime = LocalDate.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         localDateTime.format(dateTimeFormatter);
 
@@ -58,10 +56,9 @@ public class DailyController {
 
     //    Post followUp daily post and returns pdf day.now
     @PostMapping("/insert")
-    public ResponseEntity<PdfFollowUpResponse> insertFollowUp(@RequestBody CreateDailyFollowUpRequest daily){
-        LocalDateTime day = daily.date();
-        TaskCreateResponse taskUpdateDtoResponse;
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> insertFollowUp(@RequestBody CreateDailyFollowUpRequest daily){
+        String result = dailyFollowUpFacade.uploadImagemDay(daily);
+        return ResponseEntity.ok(result);
     }
 
     //    Delete acompanhamento day x returns message ok if exists

@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.nio.file.Path;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record CreateDailyFollowUpRequest(
 
-        Path filePath,
+        String filePath,
 
         @JsonFormat(pattern = "dd/MM/yyyy")
-        LocalDateTime date
+        LocalDate date
 ) {
 }

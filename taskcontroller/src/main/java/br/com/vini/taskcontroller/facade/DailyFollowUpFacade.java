@@ -1,6 +1,7 @@
 package br.com.vini.taskcontroller.facade;
 
 import br.com.vini.taskcontroller.dto.request.ConsultDateRequest;
+import br.com.vini.taskcontroller.dto.request.CreateDailyFollowUpRequest;
 import br.com.vini.taskcontroller.dto.response.PdfFollowUpResponse;
 import br.com.vini.taskcontroller.enums.DayType;
 import br.com.vini.taskcontroller.services.DailyFollowUpService;
@@ -9,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Slf4j
@@ -25,12 +26,16 @@ public class DailyFollowUpFacade {
 
     }
 
-    public PdfFollowUpResponse gerarPdfToday(LocalDateTime localDateTime) {
+    public PdfFollowUpResponse gerarPdfToday(LocalDate localDateTime) {
 
         return dailyFollowUpService.gerarPdfToday(localDateTime);
     }
 
     public PdfFollowUpResponse gerarListAllPdf(){
         return dailyFollowUpService.gerarListaPdf();
+    }
+
+    public String uploadImagemDay(CreateDailyFollowUpRequest dailyFollowUpRequest){
+        return dailyFollowUpService.uploadImagemDay(dailyFollowUpRequest);
     }
 }
