@@ -28,7 +28,7 @@ public class GymImageEntity {
 
     public GymImageEntity(String user,LocalDate localDateTime, String gridFsId) {
         this.user = user;
-        this.date = LocalDate.now();
+        this.date = localDateTime;
         this.gridFsId = gridFsId;
     }
 

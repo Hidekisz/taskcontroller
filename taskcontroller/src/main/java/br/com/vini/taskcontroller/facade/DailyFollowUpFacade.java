@@ -2,16 +2,15 @@ package br.com.vini.taskcontroller.facade;
 
 import br.com.vini.taskcontroller.dto.request.ConsultDateRequest;
 import br.com.vini.taskcontroller.dto.request.CreateDailyFollowUpRequest;
-import br.com.vini.taskcontroller.dto.response.PdfFollowUpResponse;
-import br.com.vini.taskcontroller.enums.DayType;
+import br.com.vini.taskcontroller.dto.GerarPdfDtoList;
+import br.com.vini.taskcontroller.services.AuthService;
 import br.com.vini.taskcontroller.services.DailyFollowUpService;
+import br.com.vini.taskcontroller.services.ImagemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Slf4j
 @Component
@@ -20,22 +19,31 @@ public class DailyFollowUpFacade {
     @Autowired
     private DailyFollowUpService dailyFollowUpService;
 
-    public PdfFollowUpResponse gerarPdfDaily(ConsultDateRequest consultDateRequest) {
+    @Autowired
+    private ImagemService imagemService;
 
-        return dailyFollowUpService.gerarPdfToday(consultDateRequest.date());
+    @Autowired
+    private AuthService authService;
+
+    public GerarPdfDtoList gerarPdfByDate(ConsultDateRequest consultDateRequest) {
+
+
+        return dailyFollowUpService.montaDadosPdfDayX(consultDateRequest);
 
     }
 
-    public PdfFollowUpResponse gerarPdfToday(LocalDate localDateTime) {
+    public GerarPdfDtoList gerarPdfToday(LocalDate localDateTime) {
 
-        return dailyFollowUpService.gerarPdfToday(localDateTime);
+        return dailyFollowUpService.montaDadosPdfToday(localDateTime);
     }
 
-    public PdfFollowUpResponse gerarListAllPdf(){
-        return dailyFollowUpService.gerarListaPdf();
-    }
+//    public PdfFollowUpResponse gerarListAllPdf(){
+//
+//        GerarPdfDTO gerarPdfDTO = dailyFollowUpService.montaDadosPdfAllDays();
+//        return null;
+//    }
 
-    public String uploadImagemDay(CreateDailyFollowUpRequest dailyFollowUpRequest){
+    public GerarPdfDtoList uploadImagemDay(CreateDailyFollowUpRequest dailyFollowUpRequest){
         return dailyFollowUpService.uploadImagemDay(dailyFollowUpRequest);
     }
 }
