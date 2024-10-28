@@ -34,9 +34,9 @@ public class DailyFollowUpService {
         return imagemService.obterImagemPorData(localDate);
     }
 
-//    public GerarPdfDtoList montaDadosPdfAllDays() {
-//        return null;
-//    }
+    public GerarPdfDtoList montaDadosPdfAllDays() {
+        return imagemService.obterAll();
+    }
 
     public GerarPdfDtoList uploadImagemDay(CreateDailyFollowUpRequest dailyFollowUpRequest) {
 

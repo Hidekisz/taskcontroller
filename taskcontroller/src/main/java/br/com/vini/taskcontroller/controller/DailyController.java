@@ -44,18 +44,6 @@ public class DailyController {
         return ResponseEntity.ok(pdfFollowUpResponse);
     }
 
-    @GetMapping("/day/today")
-    public ResponseEntity<GerarPdfDtoList> getGymFollowUpToday(){
-
-        LocalDate localDateTime = LocalDate.now();
-//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//        localDateTime.format(dateTimeFormatter);
-
-        GerarPdfDtoList pdfFollowUpResponse = dailyFollowUpFacade.gerarPdfToday(localDateTime);
-        return ResponseEntity.ok(pdfFollowUpResponse);
-
-    }
-
     //    Post followUp daily post and returns pdf day.now
     @PostMapping("/insert")
     public ResponseEntity<GerarPdfDtoList> insertFollowUp(@RequestBody CreateDailyFollowUpRequest daily){

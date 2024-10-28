@@ -118,4 +118,47 @@ public class ImagemService {
         }
     }
 
+
+    public GerarPdfDtoList obterAll() {
+        List<GerarPdfDTO> gerarPdfDTOs = new ArrayList<>();
+
+        try {
+
+            // Buscar todas as entidades com o intervalo de datas especificado
+            List<GymImageEntity> imageEntities = gymImageRepository.findAll();
+
+            for (GymImageEntity entity : imageEntities) {
+                String gridFsId = entity.getGridFsId();
+
+                // Recuperar o arquivo do GridFS usando o gridFsId
+                GridFSFile gridFSFile = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(gridFsId)));
+
+                if (gridFSFile != null) {
+                    // Obter o conteúdo do arquivo como array de bytes
+                    byte[] imageData = IOUtils.toByteArray(gridFsTemplate.getResource(gridFSFile).getInputStream());
+                    String imageBase64 = Base64.getEncoder().encodeToString(imageData);
+
+                    // Criar o GerarPdfDTO
+                    GerarPdfDTO gerarPdfDTO = new GerarPdfDTO(
+                            entity.getImageId(),
+                            entity.getUser(),
+                            entity.getDate(),
+                            imageBase64
+                    );
+
+                    gerarPdfDTOs.add(gerarPdfDTO);
+                } else {
+                    System.out.println("Arquivo não encontrado no GridFS para o gridFsId: " + gridFsId);
+                }
+            }
+
+            // Criar e retornar o GerarPdfDtoList
+            return new GerarPdfDtoList(gerarPdfDTOs);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

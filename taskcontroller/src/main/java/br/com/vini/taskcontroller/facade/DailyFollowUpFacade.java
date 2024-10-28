@@ -3,11 +3,13 @@ package br.com.vini.taskcontroller.facade;
 import br.com.vini.taskcontroller.dto.request.ConsultDateRequest;
 import br.com.vini.taskcontroller.dto.request.CreateDailyFollowUpRequest;
 import br.com.vini.taskcontroller.dto.GerarPdfDtoList;
+import br.com.vini.taskcontroller.enums.DayType;
 import br.com.vini.taskcontroller.services.AuthService;
 import br.com.vini.taskcontroller.services.DailyFollowUpService;
 import br.com.vini.taskcontroller.services.ImagemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -26,10 +28,14 @@ public class DailyFollowUpFacade {
     private AuthService authService;
 
     public GerarPdfDtoList gerarPdfByDate(ConsultDateRequest consultDateRequest) {
-
-
-        return dailyFollowUpService.montaDadosPdfDayX(consultDateRequest);
-
+        if (consultDateRequest.getDayType().equals(DayType.DATE)){
+            return dailyFollowUpService.montaDadosPdfDayX(consultDateRequest);
+        } else if (consultDateRequest.getDayType().equals(DayType.TODAY)){
+            LocalDate localDate = LocalDate.now();
+            return dailyFollowUpService.montaDadosPdfToday(localDate);
+        } else {
+            return dailyFollowUpService.montaDadosPdfAllDays();
+        }
     }
 
     public GerarPdfDtoList gerarPdfToday(LocalDate localDateTime) {

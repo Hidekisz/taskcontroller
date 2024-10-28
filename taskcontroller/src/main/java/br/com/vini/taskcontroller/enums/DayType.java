@@ -1,19 +1,16 @@
 package br.com.vini.taskcontroller.enums;
 
 public enum DayType {
-    TODAY(1),
-    DATE(2),
-    ALL(3);
+    TODAY(1,"TODAY"),
+    DATE(2,"DATE"),
+    ALL(3,"ALL");
 
     private Integer dayTipe;
+    private String name;
 
-    DayType(Integer dayTipe){
-        this.dayTipe = dayTipe;
+
+    DayType(int code,String nameC) {
+        dayTipe =  code;
+        name = nameC;
     }
-
-    public Integer getRole(){
-        return dayTipe;
-    }
-
-
 }
